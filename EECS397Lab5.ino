@@ -147,7 +147,7 @@ void loop() {
     myFile.println("Humidity: " + (int) TH02.ReadHumidity());
     myFile.println("Light: " + analogRead(A2));
     myFile.println("UV: " + analogRead(A3));
-    
+    myFile.println("Radon: " + leddisp[0] + leddisp[1]);    
     myFile.close();
   } else{
     Serial.println("Error opening file.");
