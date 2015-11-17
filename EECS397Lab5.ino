@@ -63,7 +63,7 @@ pinMode(6, INPUT); // Segment C
 pinMode(7, INPUT); // Segment D
 pinMode(8, INPUT); // Segment E
 pinMode(9, INPUT); // Segment F
-pinMode(14, INPUT); // Segment G
+pinMode(10, INPUT); // Segment G
 }
 
 void loop() {
@@ -81,7 +81,7 @@ void loop() {
   segments[3] = digitalRead(7);
   segments[4] = digitalRead(8);
   segments[5] = digitalRead(9);
-  segments[6] = digitalRead(14);
+  segments[6] = digitalRead(10);
 
   ledvaluecnt = 0;
   for (i=0;i<sizeof(leddigits)/sizeof(int);i=i+7)
@@ -113,7 +113,7 @@ void loop() {
   segments[3] = digitalRead(7);
   segments[4] = digitalRead(8);
   segments[5] = digitalRead(9);
-  segments[6] = digitalRead(14);
+  segments[6] = digitalRead(10);
 
   ledvaluecnt = 0;
   for (i=0;i<sizeof(leddigits)/sizeof(int);i=i+7)
