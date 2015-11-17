@@ -63,7 +63,7 @@ pinMode(6, INPUT); // Segment C
 pinMode(7, INPUT); // Segment D
 pinMode(8, INPUT); // Segment E
 pinMode(9, INPUT); // Segment F
-pinMode(10, INPUT); // Segment G
+pinMode(13, INPUT); // Segment G
 }
 
 void loop() {
@@ -81,7 +81,7 @@ void loop() {
   segments[3] = digitalRead(7);
   segments[4] = digitalRead(8);
   segments[5] = digitalRead(9);
-  segments[6] = digitalRead(10);
+  segments[6] = digitalRead(13);
 
   ledvaluecnt = 0;
   for (i=0;i<sizeof(leddigits)/sizeof(int);i=i+7)
@@ -113,7 +113,7 @@ void loop() {
   segments[3] = digitalRead(7);
   segments[4] = digitalRead(8);
   segments[5] = digitalRead(9);
-  segments[6] = digitalRead(10);
+  segments[6] = digitalRead(13);
 
   ledvaluecnt = 0;
   for (i=0;i<sizeof(leddigits)/sizeof(int);i=i+7)
@@ -139,7 +139,7 @@ void loop() {
   }
   
   delay(1000);
-  myFile = SD.open("data5.txt", FILE_WRITE);
+  myFile = SD.open(now.year() + now.month() + now.day() + ".txt", FILE_WRITE);
   if(myFile){
     Serial.println("Writing to file.");
     myFile.println("Timestamp: " + now.get());
