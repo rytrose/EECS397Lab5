@@ -42,7 +42,10 @@ int ledvaluecnt = 0;
 unsigned long duration;
 
 void setup() {
-Serial.begin(9600); 
+Serial.begin(9600);
+
+delay(150);
+TH02.begin();
 
 RTC.begin(DateTime(__DATE__, __TIME__));
 
@@ -74,7 +77,6 @@ void loop() {
      Digit 1
    */
   duration = pulseIn(2, LOW);
-
   segments[0] = digitalRead(4);
   segments[1] = digitalRead(5);
   segments[2] = digitalRead(6);
@@ -137,17 +139,29 @@ void loop() {
     }
     ledvaluecnt++;
   }
-  
+    
+  Serial.println(String((int) TH02.ReadTemperature()));
+  Serial.println(String((int) TH02.ReadHumidity()));
+   
   delay(1000);
-  myFile = SD.open(now.year() + now.month() + now.day() + ".txt", FILE_WRITE);
+  String year = String(now.year());
+  String month = String(now.month());
+  String day = String(now.day());
+  String path = year + month + day + ".txt";
+  char buf[16];
+  path.toCharArray(buf, 16);
+  myFile = SD.open(buf, FILE_WRITE);
   if(myFile){
     Serial.println("Writing to file.");
-    myFile.println("Timestamp: " + now.get());
-    myFile.println("Temperature: " + (int) TH02.ReadTemperature());
-    myFile.println("Humidity: " + (int) TH02.ReadHumidity());
-    myFile.println("Light: " + analogRead(A2));
-    myFile.println("UV: " + analogRead(A3));
-    myFile.println("Radon: " + leddisp[0] + leddisp[1]);    
+    String hour = String(now.hour());
+    String min = String(now.minute());
+    String sec = String(now.second());
+    myFile.println("Timestamp: " + hour + min + sec);
+    myFile.println("Temperature: " + String((int) TH02.ReadTemperature()));
+    myFile.println("Humidity: " + String((int) TH02.ReadHumidity()));
+    myFile.println("Light: " + String(analogRead(A2)));
+    myFile.println("UV: " + String(analogRead(A3)));
+    myFile.println("Radon: " + String(leddisp[0]) + String(leddisp[1]));    
     myFile.close();
   } else{
     Serial.println("Error opening file.");
